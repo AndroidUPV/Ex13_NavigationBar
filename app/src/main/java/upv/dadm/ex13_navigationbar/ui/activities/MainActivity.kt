@@ -46,13 +46,13 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Add this Activity as MenuProvider to itself
         addMenuProvider(this@MainActivity)
         // Add observers for the ViewModel
-        observeViewModel()
+        setUpObservers()
         // Set up NavController-related elements
         setUpNavController()
 
     }
 
-    private fun observeViewModel() {
+    private fun setUpObservers() {
         // Update the visibility of the simple badge according to whether it has been activated
         viewModel.badge.observe(this) { active ->
             binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = active

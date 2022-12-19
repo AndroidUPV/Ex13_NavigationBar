@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022
+  ~ David de Andrés and Juan Carlos Ruiz
+  ~ Development of apps for mobile devices
+  ~ Universitat Politècnica de València
+  -->
+<!-- Menu to activate badges in the Navigationbar-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Activates a badge-->
+    <item
+        android:id="@+id/mActivateBadge"
+        android:icon="@drawable/ic_announcement"
+        android:title="@string/activate_badge"
+        app:showAsAction="ifRoom" />
+
+    <!--Activates a badge with number-->
+    <item
+        android:id="@+id/mIncreaseNumericBadge"
+        android:icon="@drawable/ic_inc_numeric_badge"
+        android:title="@string/inc_numeric_badge"
+        app:showAsAction="ifRoom" />
+</menu>

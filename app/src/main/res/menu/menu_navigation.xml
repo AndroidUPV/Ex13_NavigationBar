@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022
+  ~ David de Andrés and Juan Carlos Ruiz
+  ~ Development of apps for mobile devices
+  ~ Universitat Politècnica de València
+  -->
+<!--
+  ~ Menu to navigate between Fragments.
+  ~ Navigation is automatically handled by setting the same Ids
+  ~ as the destinations in the navigation graph.
+  -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/firstFragment"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/first_fragment_title" />
+    <item
+        android:id="@+id/secondFragment"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="@string/second_fragment_title" />
+    <item
+        android:id="@+id/thirdFragment"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/third_fragment_title" />
+    <item
+        android:id="@+id/fourthFragment"
+        android:icon="@android:drawable/ic_menu_zoom"
+        android:title="@string/fourth_fragment_title" />
+</menu>

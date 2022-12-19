@@ -18,7 +18,7 @@ class BadgesViewModel : ViewModel() {
 
     // Backing property for visibility of the badge
     // It is deactivated by default
-    private var _badge: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var _badge = MutableLiveData(false)
 
     // Visibility of the badge
     val badge: LiveData<Boolean>
@@ -26,7 +26,7 @@ class BadgesViewModel : ViewModel() {
 
     // Backing property for number of the numeric badge
     // It is not visible (0) by default
-    private var _numericBadge: MutableLiveData<Int> = MutableLiveData(0)
+    private var _numericBadge = MutableLiveData(0)
 
     // Number of the numeric badge
     val numericBadge: LiveData<Int>

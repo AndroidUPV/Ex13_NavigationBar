@@ -16,47 +16,47 @@ import androidx.lifecycle.ViewModel
  */
 class BadgesViewModel : ViewModel() {
 
-    // Backing property for visibility of the badge
+    // Backing property for visibility of the small badge
     // It is deactivated by default
-    private var _badge = MutableLiveData(false)
+    private var _smallBadge = MutableLiveData(false)
 
-    // Visibility of the badge
-    val badge: LiveData<Boolean>
-        get() = _badge
+    // Visibility of the small badge
+    val smallBadge: LiveData<Boolean>
+        get() = _smallBadge
 
-    // Backing property for number of the numeric badge
+    // Backing property for number of the large badge
     // It is not visible (0) by default
-    private var _numericBadge = MutableLiveData(0)
+    private var _largeBadge = MutableLiveData(0)
 
-    // Number of the numeric badge
-    val numericBadge: LiveData<Int>
-        get() = _numericBadge
+    // Number of the large badge
+    val largeBadge: LiveData<Int>
+        get() = _largeBadge
 
     /**
-     * Activates the badge.
+     * Shows the small badge.
      */
-    fun activateBadge() {
-        _badge.value = true
+    fun showSmallBadge() {
+        _smallBadge.value = true
     }
 
     /**
-     * Deactivates the badge.
+     * Hides the small badge.
      */
-    fun deactivateBadge() {
-        _badge.value = false
+    fun hideSmallBadge() {
+        _smallBadge.value = false
     }
 
     /**
-     * Increases the current number of the numeric badge, which will be visible.
+     * Increases the current number of the large badge, which will be visible.
      */
-    fun increaseNumericBadge() {
-        _numericBadge.value = _numericBadge.value?.inc()
+    fun increaseLargeBadge() {
+        _largeBadge.value = _largeBadge.value?.inc()
     }
 
     /**
-     * Sets the current number of the numeric badge to 0 (not visible).
+     * Sets the current number of the large badge to 0 (not visible).
      */
-    fun clearNumericBadge() {
-        _numericBadge.value = 0
+    fun clearLargeBadge() {
+        _largeBadge.value = 0
     }
 }

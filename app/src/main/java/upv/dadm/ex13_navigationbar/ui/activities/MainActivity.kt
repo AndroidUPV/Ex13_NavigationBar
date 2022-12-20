@@ -15,7 +15,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import upv.dadm.ex13_navigationbar.R
 import upv.dadm.ex13_navigationbar.databinding.ActivityMainBinding
 import upv.dadm.ex13_navigationbar.ui.viewmodels.BadgesViewModel
@@ -23,13 +23,13 @@ import upv.dadm.ex13_navigationbar.ui.viewmodels.BadgesViewModel
 /**
  * Displays a NavigationBar that lets the user navigate
  * through four different Fragments (they just show a message).
- * Action elements activate Badges for the first and third Fragment
- * (simple and numeric badge, respectively).
- * Navigating to that Fragment clears the Badge.
+ * Action elements activate badges for the first and third Fragment
+ * (small and large badge, respectively).
+ * Navigating to that Fragment clears the badge.
  */
 class MainActivity : AppCompatActivity(), MenuProvider {
 
-    // Reference to the ViewModel that holds the Badge's information
+    // Reference to the ViewModel that holds badges information
     private val viewModel: BadgesViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     }
 
     private fun setUpObservers() {
-        // Update the visibility of the simple badge according to whether it has been activated
-        viewModel.badge.observe(this) { active ->
-            binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = active
+        // Update the visibility of the small badge
+        viewModel.smallBadge.observe(this) { visible ->
+            binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = visible
         }
-        // Update the visibility and number of the numeric badge according to its current number
-        viewModel.numericBadge.observe(this) { quantity ->
+        // Update the visibility and number of the large badge according to its current number
+        viewModel.largeBadge.observe(this) { quantity ->
             binding.bottomNavigation.getOrCreateBadge(R.id.thirdFragment).apply {
                 isVisible = quantity > 0
                 number = quantity
@@ -71,13 +71,13 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // findNavController() does not work properly with FragmentContainerView in onCreate()
         val navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
         // Configure the NavigationBar to work with the NavController
-        binding.bottomNavigation.setupWithNavController(navController)
+        setupWithNavController(binding.bottomNavigation, navController)
 
         // Clear the Badges whenever the user navigates to the associated Fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.firstFragment -> viewModel.deactivateBadge()
-                R.id.thirdFragment -> viewModel.clearNumericBadge()
+                R.id.firstFragment -> viewModel.hideSmallBadge()
+                R.id.thirdFragment -> viewModel.clearLargeBadge()
             }
         }
     }
@@ -91,15 +91,15 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Determine the action to take place according to its Id
         return when (menuItem.itemId) {
 
-            // Deactivate the simple badge
+            // Hides the small badge
             R.id.mActivateBadge -> {
-                viewModel.activateBadge()
+                viewModel.showSmallBadge()
                 true
             }
 
-            // Set the number of the numeric badge to 0
+            // Set the number of the large badge to 0
             R.id.mIncreaseNumericBadge -> {
-                viewModel.increaseNumericBadge()
+                viewModel.increaseLargeBadge()
                 true
             }
 

@@ -75,23 +75,16 @@ class MainActivity : AppCompatActivity(), MenuProvider {
 
         // Clear the Badges whenever the user navigates to the associated Fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
-
             when (destination.id) {
-                R.id.firstFragment -> {
-                    viewModel.deactivateBadge()
-                }
-
-                R.id.thirdFragment -> {
-                    viewModel.clearNumericBadge()
-                }
+                R.id.firstFragment -> viewModel.deactivateBadge()
+                R.id.thirdFragment -> viewModel.clearNumericBadge()
             }
         }
     }
 
     // Populates the ActionBar with action elements
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.menu_badges, menu)
-    }
 
     // Reacts to the selection of action elements
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

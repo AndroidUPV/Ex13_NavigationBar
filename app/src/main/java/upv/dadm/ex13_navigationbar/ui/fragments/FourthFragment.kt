@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment
 import upv.dadm.ex13_navigationbar.R
 import upv.dadm.ex13_navigationbar.databinding.FragmentMessageBinding
 
+/**
+ * Displays a message.
+ */
 class FourthFragment : Fragment(R.layout.fragment_message) {
 
     // Backing property to resource binding

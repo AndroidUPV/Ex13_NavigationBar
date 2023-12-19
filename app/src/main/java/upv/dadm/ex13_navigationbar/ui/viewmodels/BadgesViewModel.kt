@@ -1,8 +1,12 @@
 /*
- * Copyright (c) 2022
- * David de Andrés and Juan Carlos Ruiz
- * Development of apps for mobile devices
- * Universitat Politècnica de València
+ * Copyright (c) 2022-2023 Universitat Politècnica de València
+ * Authors: David de Andrés and Juan Carlos Ruiz
+ *          Fault-Tolerant Systems
+ *          Instituto ITACA
+ *          Universitat Politècnica de València
+ *
+ * Distributed under MIT license
+ * (See accompanying file LICENSE.txt)
  */
 
 package upv.dadm.ex13_navigationbar.ui.viewmodels
@@ -18,7 +22,7 @@ class BadgesViewModel : ViewModel() {
 
     // Backing property for visibility of the small badge
     // It is deactivated by default
-    private var _smallBadge = MutableLiveData(false)
+    private val _smallBadge = MutableLiveData(false)
 
     // Visibility of the small badge
     val smallBadge: LiveData<Boolean>
@@ -26,7 +30,7 @@ class BadgesViewModel : ViewModel() {
 
     // Backing property for number of the large badge
     // It is not visible (0) by default
-    private var _largeBadge = MutableLiveData(0)
+    private val _largeBadge = MutableLiveData(0)
 
     // Number of the large badge
     val largeBadge: LiveData<Int>

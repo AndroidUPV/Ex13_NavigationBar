@@ -1,8 +1,12 @@
 /*
- * Copyright (c) 2022
- * David de Andrés and Juan Carlos Ruiz
- * Development of apps for mobile devices
- * Universitat Politècnica de València
+ * Copyright (c) 2022-2023 Universitat Politècnica de València
+ * Authors: David de Andrés and Juan Carlos Ruiz
+ *          Fault-Tolerant Systems
+ *          Instituto ITACA
+ *          Universitat Politècnica de València
+ *
+ * Distributed under MIT license
+ * (See accompanying file LICENSE.txt)
  */
 
 package upv.dadm.ex13_navigationbar.ui.activities
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         // Determine the action to take place according to its Id
         return when (menuItem.itemId) {
 
-            // Hides the small badge
+            // Hide the small badge
             R.id.mActivateBadge -> {
                 viewModel.showSmallBadge()
                 true

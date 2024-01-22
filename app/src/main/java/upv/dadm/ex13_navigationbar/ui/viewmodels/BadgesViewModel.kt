@@ -11,8 +11,6 @@
 
 package upv.dadm.ex13_navigationbar.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +26,7 @@ data class BadgesInfo(
     val smallBadgeVisible: Boolean,
     val largeBadgeNumber: Int
 )
+
 /**
  * Holds information about badges.
  */
@@ -35,6 +34,7 @@ class BadgesViewModel : ViewModel() {
 
     // Backing property for the UI state of the badges
     private val _badgesUiState = MutableStateFlow(BadgesInfo(false, 0))
+
     // Backing property for UI state of the badges
     val badgesUiState = _badgesUiState.asStateFlow()
 

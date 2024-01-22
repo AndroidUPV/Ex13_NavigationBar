@@ -18,8 +18,12 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import kotlinx.coroutines.launch
 import upv.dadm.ex13_navigationbar.R
 import upv.dadm.ex13_navigationbar.databinding.ActivityMainBinding
 import upv.dadm.ex13_navigationbar.ui.viewmodels.BadgesViewModel
@@ -57,15 +61,17 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     }
 
     private fun setUpObservers() {
-        // Update the visibility of the small badge
-        viewModel.smallBadge.observe(this) { visible ->
-            binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = visible
-        }
-        // Update the visibility and number of the large badge according to its current number
-        viewModel.largeBadge.observe(this) { quantity ->
-            binding.bottomNavigation.getOrCreateBadge(R.id.thirdFragment).apply {
-                isVisible = quantity > 0
-                number = quantity
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.badgesUiState.collect { uiState ->
+                    // Update the visibility of the small badge
+                    binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = uiState.smallBadgeVisible
+                    // Update the visibility and number of the large badge according to its current number
+                    binding.bottomNavigation.getOrCreateBadge(R.id.thirdFragment).apply {
+                        isVisible = uiState.largeBadgeNumber > 0
+                        number = uiState.largeBadgeNumber
+                    }
+                }
             }
         }
     }

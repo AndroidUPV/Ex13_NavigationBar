@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Universitat Politècnica de València
+ * Copyright (c) 2022-2024 Universitat Politècnica de València
  * Authors: David de Andrés and Juan Carlos Ruiz
  *          Fault-Tolerant Systems
  *          Instituto ITACA
@@ -15,9 +15,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -46,8 +49,16 @@ class MainActivity : AppCompatActivity(), MenuProvider {
         super.onCreate(savedInstanceState)
         // Get the automatically generated view binding for the layout resource
         binding = ActivityMainBinding.inflate(layoutInflater)
+        // Enable edge-to-edge display
+        enableEdgeToEdge()
         // Set the activity content to the root element of the generated view
         setContentView(binding.root)
+        // Prevent the layout from overlapping with system bars in edge-to-edge display
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         // Make the custom ToolBar the ActionBar
         setSupportActionBar(binding.toolbar)
@@ -65,7 +76,8 @@ class MainActivity : AppCompatActivity(), MenuProvider {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.badgesUiState.collect { uiState ->
                     // Update the visibility of the small badge
-                    binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible = uiState.smallBadgeVisible
+                    binding.bottomNavigation.getOrCreateBadge(R.id.firstFragment).isVisible =
+                        uiState.smallBadgeVisible
                     // Update the visibility and number of the large badge according to its current number
                     binding.bottomNavigation.getOrCreateBadge(R.id.thirdFragment).apply {
                         isVisible = uiState.largeBadgeNumber > 0
